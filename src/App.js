@@ -5,6 +5,7 @@ import appReducer from './reducers'
 import PostList from './post/PostList'
 import CreatePost from './post/CreatePost'
 import UserBar from './user/UserBar'
+import Header from './Header'
 
 const defaultPosts = [{
   title: 'Post1',
@@ -15,6 +16,8 @@ const defaultPosts = [{
   content: 'bla',
   author: 'me'
 }]
+
+export const ThemeContext = React.createContext({ primaryColor: 'deepskyblue'})
 
 export default function App () {
 
@@ -31,6 +34,13 @@ export default function App () {
 
   return (
     <div style={{ padding: 8 }}>
+      <ThemeContext.Provider value={{ primaryColor: 'coral' }}>
+        <Header text="Hello World" />
+        <ThemeContext.Provider value={{ primaryColor: 'deepskyblue' }}>
+          <Header text="This is a test" />
+        </ThemeContext.Provider>
+      </ThemeContext.Provider>
+
       <UserBar user={user} dispatch={dispatch}/>
       <br />
       {user && <CreatePost user={user} posts={posts} dispatch={dispatch} />}
