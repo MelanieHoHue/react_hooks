@@ -3,7 +3,6 @@ import React, {useState, useReducer } from 'react'
 import PostList from './post/PostList'
 import CreatePost from './post/CreatePost'
 import UserBar from './user/UserBar'
-import { act } from 'react-dom/cjs/react-dom-test-utils.production.min'
 
 const defaultPosts = [{
   title: 'Post1',
@@ -15,42 +14,41 @@ const defaultPosts = [{
   author: 'me'
 }]
 
+function userReducer (state, action) {
+  switch (action.type) {
+    case 'LOGIN':
+    case 'REGISTER':
+      return action.username
+    case 'LOGOUT':
+      return ''
+    default:
+      throw new Error()
+  }
+}
+
+function postsReducer (state, action) {
+  switch (action.type) {
+    case 'CREATE_POST':
+      const newPost = {
+        title: action.title,
+        content: action.content,
+        author: action.author
+      }
+      return [ newPost, ...state ]
+    default: throw new Error()
+  }
+}
+
 export default function App () {
 
-  const [ user, setUser ] = useState('')
-  const [ posts, setPosts ] = useState(defaultPosts)
-
-  function reducer (state, action) {
-    switch (action.type) {
-      case 'TOOGLE_EXPAND':
-        return { ...state, expandPosts: !state.expandPosts}
-      case 'CHANGE_FILTER':
-        let filter = typeof state.filter === 'object' ? state.filter : {}  
-        if (action.all) {
-          return {...state, filter: 'all'}
-        }
-        if (action.fromDate) {
-          filter = { ...filter, fromDate: action.fromDate }
-        }
-        if (action.byAuthor) {
-          filter = { ...filter, byAuthor: action.byAuthor }
-        }
-        return { ...state, filter }
-      default:
-        throw new Error()
-    }
-  }
-  
-  const initialState = { all: true }
-  const [ state, dispatch ] = useReducer(reducer, initialState)
-
-  dispatch({ type: 'TOGGLE_EXPAND' })
+  const [ user, dispatchUser ] = useReducer(userReducer, '')
+  const [ posts, dispatchPosts ] = useReducer(postsReducer, defaultPosts)
 
   return (
     <div style={{ padding: 8 }}>
-      <UserBar user={user} setUser={setUser}/>
+      <UserBar user={user} dispatch={dispatchUser}/>
       <br />
-      {user && <CreatePost user={user} posts={posts} setPosts={setPosts} />}
+      {user && <CreatePost user={user} posts={posts} dispatch={dispatchPosts} />}
       <br/>
       <hr/>
       <PostList posts={posts} />
