@@ -13,18 +13,19 @@ const appConfig = {
   title: 'React Hooks Blog'
 }
 
-const defaultPosts = [
-  { id: 'react-hooks', title: 'React Hooks', content: 'The greatest thing since sliced bread!', author: 'Daniel Bugl' },
-  { id: 'react-fragments', title: 'Using React Fragments', content: 'Keeping the DOM tree clean!', author: 'Daniel Bugl' }
-]
-
 export default function App () {
   const [ theme, setTheme ] = useState({ 
     primaryColor: 'deepskyblue',
     secondaryColor: 'coral'
   })
-  const [ state, dispatch ] = useReducer(appReducer, { user: '', posts: defaultPosts })
+  const [ state, dispatch ] = useReducer(appReducer, { user: '', posts: [] })
   const { user, posts } = state
+
+  useEffect(() => {
+    fetch('/api/posts')
+    .then(result => result.json())
+    .then(posts => dispatch({ type: 'FETCH_POSTS', posts }))
+  }, [])
 
   useEffect(() => {
     if (user) {
