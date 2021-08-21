@@ -13,15 +13,10 @@ const appConfig = {
   title: 'React Hooks Blog'
 }
 
-const defaultPosts = [{
-  title: 'Post1',
-  content: 'bla',
-  author: 'me'
-}, {
-  title: 'Post2',
-  content: 'bla',
-  author: 'me'
-}]
+const defaultPosts = [
+  { id: 'react-hooks', title: 'React Hooks', content: 'The greatest thing since sliced bread!', author: 'Daniel Bugl' },
+  { id: 'react-fragments', title: 'Using React Fragments', content: 'Keeping the DOM tree clean!', author: 'Daniel Bugl' }
+]
 
 export default function App () {
   const [ theme, setTheme ] = useState({ 
