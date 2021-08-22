@@ -3,6 +3,7 @@ import { useResource, useRsource } from 'react-request-hook'
 import { Link } from 'react-navi'
 
 import Post from '../post/Post'
+import FooterBar from './FooterBar'
 
 export default function PostPage ({ id }) {
     const [ post, getPost ] = useResource(() => ({
@@ -20,6 +21,7 @@ export default function PostPage ({ id }) {
                 <Post {...post.data} /> :
                 'Loading...'
             }
+            <FooterBar />
         </div>
     )
 }
