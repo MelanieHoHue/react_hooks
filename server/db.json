@@ -9,14 +9,20 @@
     {
       "id": "react-fragments",
       "title": "Using React Fragments",
-      "content": "Keeping the DOM tree clean!",
+      "content": "Keeping the DOM tree clean! makes fun...",
       "author": "Daniel Bugl"
     },
     {
       "title": "New Post",
-      "content": "aqswderftg",
+      "content": "New Posts are great! Within you can write about topics.",
       "author": "Melanie",
       "id": "RuAKIT6"
+    },
+    {
+      "title": "New Post 2",
+      "content": "a lot of new posts will be added over time",
+      "author": "Melanie",
+      "id": "Wmp2ItI"
     }
   ],
   "users": [
