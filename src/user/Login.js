@@ -16,15 +16,11 @@ export default function Login () {
 
     useEffect(() => {
         if (user && user.data) {
-            if (user.data.length > 0) {
+            if (user.data.length === 0 || user.error) {
+                setLoginFailed(true)
+            } else {
                 setLoginFailed(false)
                 dispatch({ type: 'LOGIN', username: user.data[0].username})
-            } else {
-                setLoginFailed(true)
-            }
-
-            if (user && user.error) {
-                setLoginFailed(true)
             }
         }
     }, [user])

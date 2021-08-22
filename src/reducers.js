@@ -36,7 +36,6 @@ function userReducer (state, action) {
   }
 
   export default function appReducer (state, action) {
-      console.log(action);
     return {
         user: userReducer(state.user, action),
         posts: postsReducer(state.posts, action),
